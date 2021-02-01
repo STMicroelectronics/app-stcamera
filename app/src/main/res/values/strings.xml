@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">ST Camera</string>
+
+    <string name="button_take_picture">Take picture</string>
+    <string name="button_reset_picture_list">Reset list</string>
+
+    <string name="preview_title">Camera Preview</string>
+    <string name="picture_list_title">Pictures</string>
+    <string name="picture_content_description">Picture</string>
+
+    <string name="menu_preview_settings">Preview Settings</string>
+
+    <string name="pref_preview_category">Preview configuration</string>
+    <string name="pref_preview_category_label">preview_config</string>
+
+    <string name="pref_preview_size_label">pref_preview_size</string>
+    <string name="pref_preview_size">Select camera preview size</string>
+
+    <string-array name="preview_size_entries">
+        <item>Size x1</item>
+        <item>Size x2</item>
+    </string-array>
+    <string-array name="preview_size_values">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <string name="preview_size_default_entry">Size x1</string>
+    <string name="preview_size_default_value">1</string>
+
+</resources>
