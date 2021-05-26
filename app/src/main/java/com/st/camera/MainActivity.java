@@ -32,6 +32,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.Size;
 import android.util.SparseIntArray;
@@ -70,6 +71,9 @@ public class MainActivity extends AppCompatActivity implements PictureAdapter.On
     private TextureView mTextureView;
     private Button mTakePictureButton;
     private Button mResetPictureListButton;
+
+    private boolean mSmallScreen = false;
+
     private static final SparseIntArray ORIENTATIONS = new SparseIntArray();
 
     static {
@@ -77,6 +81,15 @@ public class MainActivity extends AppCompatActivity implements PictureAdapter.On
         ORIENTATIONS.append(Surface.ROTATION_90, 0);
         ORIENTATIONS.append(Surface.ROTATION_180, 270);
         ORIENTATIONS.append(Surface.ROTATION_270, 180);
+    }
+
+    private static final SparseIntArray ORIENTATIONS_INV = new SparseIntArray();
+
+    static {
+        ORIENTATIONS_INV.append(Surface.ROTATION_0, 270);
+        ORIENTATIONS_INV.append(Surface.ROTATION_90, 180);
+        ORIENTATIONS_INV.append(Surface.ROTATION_180, 90);
+        ORIENTATIONS_INV.append(Surface.ROTATION_270, 0);
     }
 
     protected CameraDevice mCameraDevice;
@@ -93,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements PictureAdapter.On
     private RecyclerView mPictureListView;
     private PictureAdapter mPictureAdapter;
 
-    private static final double TEXTURE_RATIO = 0.8;
+    private static final double TEXTURE_RATIO = 0.95;
 
     private static final int MAX_INDEX = 2;
     private int mIndex = 1;
@@ -126,9 +139,22 @@ public class MainActivity extends AppCompatActivity implements PictureAdapter.On
 
         mPictureListView = findViewById(R.id.picture_list);
 
+        DisplayMetrics metrics = new DisplayMetrics();
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q) {
+            getDisplay().getRealMetrics(metrics);
+        } else {
+            getWindowManager().getDefaultDisplay().getRealMetrics(metrics);
+        }
+        mSmallScreen = metrics.widthPixels <= 480;
+
         initRecycler();
 
         checkPermission();
+    }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
     }
 
     private static final int REQUEST_PERMISSION_STATE = 100;
@@ -159,6 +185,7 @@ public class MainActivity extends AppCompatActivity implements PictureAdapter.On
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == REQUEST_PERMISSION_STATE) {
             if (grantResults.length > 0) {
                 int index = 0;
@@ -388,9 +415,13 @@ public class MainActivity extends AppCompatActivity implements PictureAdapter.On
             } else {
                 rotation = getWindowManager().getDefaultDisplay().getRotation();
             }
-            Log.d(LOG_TAG, "Take picture orientation = " + ORIENTATIONS.get(rotation));
-            captureBuilder.set(CaptureRequest.JPEG_ORIENTATION, ORIENTATIONS.get(rotation));
-
+            if (mSmallScreen) {
+                Log.d(LOG_TAG, "Take picture orientation = " + ORIENTATIONS_INV.get(rotation));
+                captureBuilder.set(CaptureRequest.JPEG_ORIENTATION, ORIENTATIONS_INV.get(rotation));
+            } else {
+                Log.d(LOG_TAG, "Take picture orientation = " + ORIENTATIONS.get(rotation));
+                captureBuilder.set(CaptureRequest.JPEG_ORIENTATION, ORIENTATIONS.get(rotation));
+            }
             final File file = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "stcam_" + now2DateTime() + ".jpg");
 
             ImageReader.OnImageAvailableListener readerListener = new ImageReader.OnImageAvailableListener() {
@@ -588,6 +619,7 @@ public class MainActivity extends AppCompatActivity implements PictureAdapter.On
             if (cameraList.length == 0) {
                 Toast.makeText(getApplicationContext(),"No camera device available", Toast.LENGTH_SHORT).show();
                 finish();
+                return;
             }
             String cameraId = cameraList[0];
             CameraCharacteristics characteristics = manager.getCameraCharacteristics(cameraId);

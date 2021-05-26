@@ -40,7 +40,7 @@ public class PictureActivity extends AppCompatActivity {
         if (intent != null) {
             String path = intent.getStringExtra(EXTRA_FILE_PATH);
             if (path != null) {
-                Picasso.with(this).load(new File(path)).into(mPictureImage);
+                Picasso.get().load(new File(path)).into(mPictureImage);
             }
             pictureName.setText(intent.getStringExtra(EXTRA_FILE_NAME));
         }
