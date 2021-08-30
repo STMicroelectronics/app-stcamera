@@ -72,24 +72,13 @@ public class MainActivity extends AppCompatActivity implements PictureAdapter.On
     private Button mTakePictureButton;
     private Button mResetPictureListButton;
 
-    private boolean mSmallScreen = false;
-
     private static final SparseIntArray ORIENTATIONS = new SparseIntArray();
 
     static {
-        ORIENTATIONS.append(Surface.ROTATION_0, 90);
-        ORIENTATIONS.append(Surface.ROTATION_90, 0);
-        ORIENTATIONS.append(Surface.ROTATION_180, 270);
-        ORIENTATIONS.append(Surface.ROTATION_270, 180);
-    }
-
-    private static final SparseIntArray ORIENTATIONS_INV = new SparseIntArray();
-
-    static {
-        ORIENTATIONS_INV.append(Surface.ROTATION_0, 270);
-        ORIENTATIONS_INV.append(Surface.ROTATION_90, 180);
-        ORIENTATIONS_INV.append(Surface.ROTATION_180, 90);
-        ORIENTATIONS_INV.append(Surface.ROTATION_270, 0);
+        ORIENTATIONS.append(Surface.ROTATION_0, 270);
+        ORIENTATIONS.append(Surface.ROTATION_90, 180);
+        ORIENTATIONS.append(Surface.ROTATION_180, 90);
+        ORIENTATIONS.append(Surface.ROTATION_270, 0);
     }
 
     protected CameraDevice mCameraDevice;
@@ -106,7 +95,9 @@ public class MainActivity extends AppCompatActivity implements PictureAdapter.On
     private RecyclerView mPictureListView;
     private PictureAdapter mPictureAdapter;
 
-    private static final double TEXTURE_RATIO = 0.95;
+    private static final double NORMAL_TEXTURE_RATIO = 0.8;
+    private static final double SMALL_SCREEN_TEXTURE_RATIO = 0.95;
+    private double mRatio;
 
     private static final int MAX_INDEX = 2;
     private int mIndex = 1;
@@ -139,13 +130,18 @@ public class MainActivity extends AppCompatActivity implements PictureAdapter.On
 
         mPictureListView = findViewById(R.id.picture_list);
 
+        // Manage small screen case (MB1166 800x480) vs standard one (MB1230 1280x720)
         DisplayMetrics metrics = new DisplayMetrics();
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q) {
             getDisplay().getRealMetrics(metrics);
         } else {
             getWindowManager().getDefaultDisplay().getRealMetrics(metrics);
         }
-        mSmallScreen = metrics.widthPixels <= 480;
+        if (metrics.widthPixels <= 480) {
+            mRatio = SMALL_SCREEN_TEXTURE_RATIO;
+        } else {
+            mRatio = NORMAL_TEXTURE_RATIO;
+        }
 
         initRecycler();
 
@@ -415,13 +411,9 @@ public class MainActivity extends AppCompatActivity implements PictureAdapter.On
             } else {
                 rotation = getWindowManager().getDefaultDisplay().getRotation();
             }
-            if (mSmallScreen) {
-                Log.d(LOG_TAG, "Take picture orientation = " + ORIENTATIONS_INV.get(rotation));
-                captureBuilder.set(CaptureRequest.JPEG_ORIENTATION, ORIENTATIONS_INV.get(rotation));
-            } else {
-                Log.d(LOG_TAG, "Take picture orientation = " + ORIENTATIONS.get(rotation));
-                captureBuilder.set(CaptureRequest.JPEG_ORIENTATION, ORIENTATIONS.get(rotation));
-            }
+            Log.d(LOG_TAG, "Take picture orientation = " + ORIENTATIONS.get(rotation));
+            captureBuilder.set(CaptureRequest.JPEG_ORIENTATION, ORIENTATIONS.get(rotation));
+
             final File file = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "stcam_" + now2DateTime() + ".jpg");
 
             ImageReader.OnImageAvailableListener readerListener = new ImageReader.OnImageAvailableListener() {
@@ -655,8 +647,8 @@ public class MainActivity extends AppCompatActivity implements PictureAdapter.On
 
     private void updatePreviewDisplayedResolution() {
         ViewGroup.LayoutParams layoutParams = mTextureView.getLayoutParams();
-        layoutParams.width = (int) Math.round(mImageDimension.getWidth() * TEXTURE_RATIO);
-        layoutParams.height = (int) Math.round(mImageDimension.getHeight() * TEXTURE_RATIO);
+        layoutParams.width = (int) Math.round(mImageDimension.getWidth() * mRatio);
+        layoutParams.height = (int) Math.round(mImageDimension.getHeight() * mRatio);
         mTextureView.setLayoutParams(layoutParams);
     }
 
