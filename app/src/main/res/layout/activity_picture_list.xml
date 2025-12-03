@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/vertical_margin_quarter"
+    android:paddingBottom="@dimen/vertical_margin_quarter"
+    android:paddingStart="@dimen/horizontal_margin_quarter"
+    android:paddingEnd="@dimen/horizontal_margin_quarter"
+    android:background="@color/colorBackground">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/picture_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/horizontal_margin_half"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/delete_all_picture"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/colorBackground"
+        android:fadeScrollbars="true"
+        android:scrollbars="horizontal"/>
+
+    <ImageButton
+        android:id="@+id/delete_all_picture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/delete_picture_list"
+        android:onClick="deleteAllPictures"
+        android:src="@drawable/delete_picture"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="@dimen/horizontal_margin"
+        android:background="@color/noBackground"
+        app:tint="@drawable/image_button_blue_tint"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

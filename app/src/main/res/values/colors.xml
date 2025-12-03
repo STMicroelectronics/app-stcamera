@@ -5,4 +5,9 @@
     <color name="colorAccent">#BBCC00</color>
 
     <color name="colorBackground">#2039A9DC</color>
+    <color name="noBackground">#00000000</color>
+
+    <color name="image_button_pressed_color">#525a63</color>
+
+    <color name="white">#FFFFFF</color>
 </resources>

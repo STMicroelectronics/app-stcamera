@@ -1,8 +1,29 @@
 <resources>
     <string name="app_name">ST Camera</string>
 
+    <string name="no_camera">No camera available</string>
+
     <string name="button_take_picture">Take picture</string>
     <string name="button_reset_picture_list">Reset list</string>
+    <string name="button_show_settings">Show settings</string>
+    <string name="button_gallery">Gallery</string>
+
+    <string name="layout_settings">Settings layout</string>
+    <string name="settings_header">Settings</string>
+    <string name="resolution_header">Image Capture Resolution</string>
+
+    <string name="resolution1">2592x1944 (4:3)</string>
+    <string name="resolution2">1600x1200 (4:3)</string>
+    <string name="resolution3">640x480 (4:3)</string>
+    <string name="resolution4">1920x1080 (16:9)</string>
+    <string name="resolution5">1280x720 (16:9)</string>
+
+    <string name="display_preview_resolution_header">Preview Infos</string>
+    <string name="display_preview_resolution_checkbox">Show resolution</string>
+    <string name="no_resolution_info">No resolution info</string>
+
+    <string name="back_settings">Back</string>
+    <string name="reset_settings">Reset settings</string>
 
     <string name="preview_title">Camera Preview</string>
     <string name="picture_list_title">Pictures</string>
@@ -16,6 +37,16 @@
     <string name="pref_preview_size_label">pref_preview_size</string>
     <string name="pref_preview_size">Select camera preview size</string>
 
+    <string name="picture_preview_in_list">Picture preview in the picture list.</string>
+    <string name="delete_picture_list">Delete pictures in picture list</string>
+    <string name="delete_picture">Delete this picture</string>
+
+    <string name="full_screen_picture">Picture in full screen</string>
+    <string name="info">Information about the picture</string>
+
+    <string name="info_dialog_fragment_header">Information about the picture</string>
+    <string name="close">Close</string>
+
     <string-array name="preview_size_entries">
         <item>Size x1</item>
         <item>Size x2</item>
@@ -26,5 +57,12 @@
     </string-array>
     <string name="preview_size_default_entry">Size x1</string>
     <string name="preview_size_default_value">1</string>
+
+    <string name="content_descriptor_settings">Settings</string>
+    <string name="content_descriptor_take_picture">Take Picture</string>
+    <string name="content_descriptor_picture_list">Picture List</string>
+
+    <string name="content_descriptor_hide_settings">Hide Settings</string>
+    <string name="content_descriptor_reset_settings">Reset Settings</string>
 
 </resources>

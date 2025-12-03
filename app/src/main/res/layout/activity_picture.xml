@@ -1,32 +1,27 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground"
-    android:orientation="vertical"
-    android:weightSum="1"
-    tools:context=".PictureActivity">
-
-    <TextView
-        android:id="@+id/picture_text_view"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.1"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:gravity="center"
-        style="@style/Title"
-        android:text="@string/preview_title"/>
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="@dimen/horizontal_margin">
 
     <ImageView
         android:id="@+id/picture_image_view"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.9"
-        android:layout_gravity="center"
-        android:scaleType="center"
-        android:contentDescription="@string/picture_content_description"
-        tools:src="@mipmap/ic_launcher"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/full_screen_picture"
+        android:layout_gravity="center"/>
 
-</LinearLayout>
+    <ImageButton
+        android:id="@+id/info_picture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|top"
+        android:paddingTop="@dimen/vertical_margin_quarter"
+        android:paddingBottom="@dimen/vertical_margin_quarter"
+        android:paddingStart="@dimen/horizontal_margin_quarter"
+        android:paddingEnd="@dimen/horizontal_margin_quarter"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/info"
+        android:src="@drawable/info"
+        app:tint="@drawable/image_button_light_blue_tint" />
+</FrameLayout>

@@ -6,4 +6,12 @@
     <dimen name="vertical_margin">16dp</dimen>
     <dimen name="vertical_margin_half">8dp</dimen>
     <dimen name="vertical_margin_quarter">4dp</dimen>
+
+    <dimen name="scroll_view_size">125dp</dimen>
+
+    <dimen name="main_button_margin">24dp</dimen>
+
+    <dimen name="picture_list_preview">300dp</dimen>
+
+    <dimen name="header_text_size">20sp</dimen>
 </resources>

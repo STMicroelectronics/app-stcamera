@@ -62,11 +62,11 @@
             android:scrollbarTrackVertical="@color/colorBackground"
             android:fadeScrollbars="false">
             <RadioGroup
-            android:id="@+id/radio_button_resolution"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            tools:visibility="visible">
+                android:id="@+id/radio_button_resolution"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                tools:visibility="visible">
                 <RadioButton android:id="@+id/radio_button_resolution1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -88,6 +88,20 @@
                     android:buttonTint="@color/white"
                     android:onClick="selectResolution3"
                     android:text="@string/resolution3"
+                    android:textColor="@color/white"/>
+                <RadioButton android:id="@+id/radio_button_resolution4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/white"
+                    android:onClick="selectResolution4"
+                    android:text="@string/resolution4"
+                    android:textColor="@color/white"/>
+                <RadioButton android:id="@+id/radio_button_resolution5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/white"
+                    android:onClick="selectResolution5"
+                    android:text="@string/resolution5"
                     android:textColor="@color/white"/>
             </RadioGroup>
         </ScrollView>
@@ -135,7 +149,7 @@
                 android:text="@string/back_settings"
                 tools:text="@string/back_settings"/>
 
-             <ImageButton
+            <ImageButton
                 android:id="@+id/button_reset_settings"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
